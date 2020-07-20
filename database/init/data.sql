@@ -8,8 +8,7 @@ IF NOT EXISTS actors
 (
   id INTEGER PRIMARY KEY ,
   login TEXT NOT NULL UNIQUE,
-  avatar_url TEXT NOT NULL,
-  created_at TEXT NOT NULL
+  avatar_url TEXT NOT NULL
 );
 
 
@@ -19,11 +18,10 @@ IF NOT EXISTS actors
 CREATE TABLE
 IF NOT EXISTS repos
 (
-id INTEGER PRIMARY KEY ,
+  id INTEGER PRIMARY KEY ,
   name TEXT NOT NULL,
   url TEXT NOT NULL,
   actor_id INTEGER NOT NULL,
-  created_at TEXT NOT NULL,
   FOREIGN KEY
 (actor_id)
       REFERENCES actors

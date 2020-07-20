@@ -11,6 +11,6 @@ const {
 // Routes related to actor.
 router.post('/', createActor);
 router.get('/', getAllActors);
-router.get('/actors/streak', getStreak);
+router.get('/streak', getStreak);
 router.put('/', updateActor);
 module.exports = router;

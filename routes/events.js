@@ -1,12 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-const {
-  addEvent,
-  getAllEvents,
-  getByActor,
-  eraseEvents,
-} = require('../controllers/events');
+const { addEvent, getAllEvents, getByActor } = require('../controllers/events');
 
 // Routes related to event
 router.post('/', addEvent);

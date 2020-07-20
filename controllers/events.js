@@ -1,11 +1,28 @@
 const repository = require('../database/repository');
-const { Date } = require('../helpers/formatDate');
 
 var getAllEvents = async (req, res) => {
-  const orderBy = ' ORDER BY id ASC';
-  const eventRecords = await repository.readTable('events', ' ', orderBy);
+  try {
+    const orderBy = ' ORDER BY id ASC';
+    let eventRecords = await repository.readTable('events', ' ', orderBy);
+    eventRecords = await Promise.all(
+      eventRecords.map(async (event) => {
+        const repo = await repository.getRow('repos', event.repo_id);
+        const actor = await repository.getRow('actors', event.actor_id);
+        const { id, type, created_at } = event;
+        return {
+          id,
+          type,
+          actor,
+          repo,
+          created_at,
+        };
+      })
+    );
 
-  res.status(200).json(eventRecords);
+    res.status(200).json(eventRecords);
+  } catch (error) {
+    return res.send(400).json({ message: error.message });
+  }
 };
 
 var addEvent = async (req, res) => {

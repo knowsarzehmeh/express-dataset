@@ -44,13 +44,9 @@ const createRow = (table, data) => {
   let values = Object.values(data);
   values = "'" + values.join("','") + "'";
   let sql;
-  if (data.created_at) {
-    sql = `INSERT INTO ${table}(${rows.join(', ')}) values (${values})`;
-  } else {
-    sql = `INSERT INTO ${table}(${rows.join(
-      ', '
-    )}, created_at) values (${values} , datetime('now'))`;
-  }
+
+  sql = `INSERT INTO ${table}(${rows.join(', ')}) values (${values})`;
+
   console.log(sql);
 
   return new Promise((resolve, reject) => {
